@@ -86,7 +86,7 @@
                         "[resourceId('Microsoft.Web/sites/', variables('functionAppName'))]"
                     ],
                     "properties": {
-                        "RepoUrl": "https://github.com/scale-tone/durable-mvc-starter",
+                        "RepoUrl": "https://github.com/scale-tone/durable-mvc-samples",
                         "branch": "main"
                     }
                 }

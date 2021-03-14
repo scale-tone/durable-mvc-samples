@@ -1,13 +1,39 @@
-.counter-div {
-    white-space: nowrap;
+html {
+    overflow-y: scroll;
 }
 
-.counter-div button {
-    margin: 5px;
-    display: inline-block;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: table;
+    width: 100%;
 }
 
-.counter-div h3 {
+.appointment-paper {
+    width: 100%;
+    padding: 10px;
+}
+
+.participants-text {
+    padding: 10px;
+    float: right;
+}
+
+.appointment-status-chip {
+    width: 100%;
     margin: 5px;
-    display: inline-block;
+}
+
+.participant-chip {
+    margin: 5px;
+}
+
+.new-appointment-button {
+    width: 350px;
+}
+
+.empty-list-placeholder {
+    padding: 30px;
+    text-align: center;
 }

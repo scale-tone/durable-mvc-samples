@@ -4,9 +4,9 @@
     "parameters": {
         "deploymentName": {
             "type": "string",
-            "defaultValue": "[concat('durmvc', uniqueString(resourceGroup().id))]",
+            "defaultValue": "[concat('appsmp', uniqueString(resourceGroup().id))]",
             "metadata": {
-                "description": "A unique random base name for this demo setup"
+                "description": "A unique random base name for this demo setup. Lower letters only."
             }
         }
     },
@@ -30,8 +30,6 @@
                 "minimumTlsVersion": "TLS1_2"
             }
         },
-
-
         {
             "type": "Microsoft.SignalRService/signalR",
             "apiVersion": "2020-07-01-preview",
@@ -49,13 +47,12 @@
                     }
                 ],
                 "cors": {
-                    "allowedOrigins": ["*"]
+                    "allowedOrigins": [
+                        "*"
+                    ]
                 }
             }
         },
-
-
-
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2016-09-01",
@@ -98,6 +95,10 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
                 "siteConfig": {
                     "appSettings": [
+                        {
+                            "name": "Project",
+                            "value": "appointments-sample"
+                        },
                         {
                             "name": "AzureSignalRHubName",
                             "value": "DurableMvcTestHub"

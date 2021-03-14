@@ -14,5 +14,5 @@
         }
     ],
     "disabled": false,
-    "scriptFile": "../dist/CounterEntity/index.js"
+    "scriptFile": "../dist/AppointmentEntity/index.js"
 }

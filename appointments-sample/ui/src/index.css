@@ -30,7 +30,7 @@ body {
 }
 
 .new-appointment-button {
-    width: 350px;
+    min-width: 350px !important;
 }
 
 .empty-list-placeholder {

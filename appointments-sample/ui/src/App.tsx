@@ -71,7 +71,7 @@ export const App = observer(
 
                     <TextField
                         fullWidth
-                        label="Comma-separated list of participants"
+                        label="Comma-separated list of participants (or empty string to create appointment with yourself)"
                         placeholder="Alice, Bob, Charlie..."
                         InputLabelProps={{ shrink: true }}
                         variant="outlined"
@@ -90,7 +90,6 @@ export const App = observer(
 
                     <Button variant="contained" color="default" size="large" className="new-appointment-button"
                         onClick={() => this.createNewAppointment()}
-                        disabled={!appState.participantsText}
                     >
                         Create new appointment
                     </Button>

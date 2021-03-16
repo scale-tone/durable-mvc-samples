@@ -5,8 +5,6 @@ const DurableEntity_1 = require("../Common/DurableEntity");
 const AppointmentState_1 = require("../ui/src/shared/AppointmentState");
 // Appointment logic implementation
 class AppointmentEntity extends DurableEntity_1.DurableEntity {
-    // Overriding visibility. This entity should only be visible to people mentioned in this.stateMetadata.allowedUsers
-    get visibility() { return DurableEntity_1.VisibilityEnum.ToListOfUsers; }
     // Initializes new appointment instance
     init(participants) {
         // Adding appointment creator to the list of participants
@@ -39,6 +37,8 @@ class AppointmentEntity extends DurableEntity_1.DurableEntity {
     delete() {
         this.destructOnExit();
     }
+    // Overriding visibility. This entity should only be visible to people mentioned in this.stateMetadata.allowedUsers
+    get visibility() { return DurableEntity_1.VisibilityEnum.ToListOfUsers; }
 }
 // Boilerplate to expose this class as a Durable Entity
 exports.default = DurableFunctions.entity((ctx) => new AppointmentEntity(ctx).handleSignal());

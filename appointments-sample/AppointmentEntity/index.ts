@@ -6,9 +6,6 @@ import { AppointmentState, AppointmentStatusEnum } from '../ui/src/shared/Appoin
 // Appointment logic implementation
 class AppointmentEntity extends DurableEntity<AppointmentState>
 {
-    // Overriding visibility. This entity should only be visible to people mentioned in this.stateMetadata.allowedUsers
-    protected get visibility(): VisibilityEnum { return VisibilityEnum.ToListOfUsers; }
-
     // Initializes new appointment instance
     init(participants: string[]) {
 
@@ -47,6 +44,9 @@ class AppointmentEntity extends DurableEntity<AppointmentState>
     delete() {
         this.destructOnExit();
     }
+
+    // Overriding visibility. This entity should only be visible to people mentioned in this.stateMetadata.allowedUsers
+    protected get visibility(): VisibilityEnum { return VisibilityEnum.ToListOfUsers; }
 }
 
 // Boilerplate to expose this class as a Durable Entity

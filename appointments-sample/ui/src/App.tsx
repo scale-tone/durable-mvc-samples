@@ -41,7 +41,7 @@ const appState = makeAutoObservable({
     participantsText: '',
 
     // Here all appointment entities will appear
-    appointments: new DurableEntitySet<AppointmentState>('AppointmentEntity', true)
+    appointments: new DurableEntitySet<AppointmentState>('AppointmentEntity')
 });
 
 // Rendering that entity state

@@ -132,8 +132,12 @@ export const App = observer(
                         </Grid>
 
                         <Grid item xs={5} className="appointment-grid-cell">
-                            {appointment.participants.map(participant => (
-                                <Chip label={participant} className="participant-chip" />
+                            {Object.keys(appointment.participants).map(name => (
+                                <Chip label={name}
+                                    color={appointment.participants[name] === AppointmentStatusEnum.Accepted ? 'primary' :
+                                        (appointment.participants[name] === AppointmentStatusEnum.Declined ? 'secondary' : 'default')}
+                                    className="participant-chip"
+                                />
                             ))}
                         </Grid>
 

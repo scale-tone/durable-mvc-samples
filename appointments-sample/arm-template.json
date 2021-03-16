@@ -87,7 +87,8 @@
                     ],
                     "properties": {
                         "RepoUrl": "https://github.com/scale-tone/durable-mvc-samples",
-                        "branch": "main"
+                        "branch": "main",
+                        "IsManualIntegration": true
                     }
                 }
             ],

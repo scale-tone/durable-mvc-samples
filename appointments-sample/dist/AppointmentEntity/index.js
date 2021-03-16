@@ -13,26 +13,26 @@ class AppointmentEntity extends DurableEntity_1.DurableEntity {
         if (!participants.includes(this.stateMetadata.owner)) {
             participants.push(this.stateMetadata.owner);
         }
-        this.state.participants = participants;
-        this.state.participantsAccepted = [];
+        this.state.participants = {};
+        for (var name of participants) {
+            this.state.participants[name] = AppointmentState_1.AppointmentStatusEnum.Pending;
+        }
         this.state.status = AppointmentState_1.AppointmentStatusEnum.Pending;
         // Sharing this entity with all participants
         this.stateMetadata.allowedUsers = participants;
     }
     // Handles someone's response
     respond(isAccepted) {
-        // If someone declined
-        if (!isAccepted) {
-            this.state.status = AppointmentState_1.AppointmentStatusEnum.Declined;
-            return;
-        }
-        // Adding calling user to the list of participants that accepted
-        if (!this.state.participantsAccepted.includes(this.callingUser)) {
-            this.state.participantsAccepted.push(this.callingUser);
-        }
-        // If everyone has accepted
-        if (this.state.participants.every(u => this.state.participantsAccepted.includes(u))) {
+        // Saving user's response
+        this.state.participants[this.callingUser] = isAccepted ? AppointmentState_1.AppointmentStatusEnum.Accepted : AppointmentState_1.AppointmentStatusEnum.Declined;
+        // Updating appointment's status
+        if (Object.keys(this.state.participants).every(name => this.state.participants[name] === AppointmentState_1.AppointmentStatusEnum.Accepted)) {
+            // Everyone has accepted
             this.state.status = AppointmentState_1.AppointmentStatusEnum.Accepted;
+        }
+        else if (!isAccepted) {
+            // Someone has declined
+            this.state.status = AppointmentState_1.AppointmentStatusEnum.Declined;
         }
     }
     // Deletes this entity

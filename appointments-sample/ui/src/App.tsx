@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react';
-import { AppBar, Button, Box, Chip, Grid, List, ListItem, Paper, TextField, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, Box, Chip, Grid, LinearProgress, List, ListItem, Paper, TextField, Toolbar, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 
 import { DurableEntitySet } from './common/DurableEntitySet';
@@ -40,6 +40,8 @@ const appState = makeAutoObservable({
 
     participantsText: '',
 
+    inProgress: false,
+
     // Here all appointment entities will appear
     appointments: new DurableEntitySet<AppointmentState>('AppointmentEntity')
 });
@@ -59,7 +61,10 @@ export const App = observer(
             const newAppointmentId = 'APP-' + new Date().toISOString();
 
             // Creating a new entity
-            appState.appointments.signalEntity(newAppointmentId, 'init', participants);
+            appState.inProgress = true;
+            appState.appointments.callEntity(newAppointmentId, 'init', participants)
+                .catch(err => alert(err.message))
+                .finally(() => { appState.inProgress = false; });
 
             appState.participantsText = '';
         }
@@ -77,6 +82,7 @@ export const App = observer(
                         variant="outlined"
                         size="small"
                         value={appState.participantsText}
+                        disabled={appState.inProgress}
                         onChange={(evt) => appState.participantsText = evt.target.value as string}
                         onKeyPress={(evt) => {
                             if (evt.key === 'Enter') {
@@ -89,6 +95,7 @@ export const App = observer(
                     <Box width={20} />
 
                     <Button variant="contained" color="default" size="large" className="new-appointment-button"
+                        disabled={appState.inProgress}
                         onClick={() => this.createNewAppointment()}
                     >
                         Create new appointment
@@ -102,6 +109,8 @@ export const App = observer(
 
                 </Toolbar>
             </AppBar>
+
+            {appState.inProgress ? (<LinearProgress />) : (<Box height={4} />)}
 
             <List>
 
@@ -143,24 +152,39 @@ export const App = observer(
 
                         <Grid item xs={1}>
                             <Button fullWidth variant="contained" color="primary"
-                                disabled={appointment.status !== AppointmentStatusEnum.Pending}
-                                onClick={() => appState.appointments.signalEntity(appointment.entityKey, 'respond', true)}
+                                disabled={appState.inProgress || appointment.status !== AppointmentStatusEnum.Pending}
+                                onClick={() => {
+                                    appState.inProgress = true;
+                                    appState.appointments.callEntity(appointment.entityKey, 'respond', true)
+                                        .catch(err => alert(err.message))
+                                        .finally(() => { appState.inProgress = false; });
+                                }}
                             >
                                 Accept
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
                             <Button fullWidth variant="contained" color="secondary"
-                                disabled={appointment.status !== AppointmentStatusEnum.Pending}
-                                onClick={() => appState.appointments.signalEntity(appointment.entityKey, 'respond', false)}
+                                disabled={appState.inProgress || appointment.status !== AppointmentStatusEnum.Pending}
+                                onClick={() => {
+                                    appState.inProgress = true;
+                                    appState.appointments.callEntity(appointment.entityKey, 'respond', false)
+                                        .catch(err => alert(err.message))
+                                        .finally(() => { appState.inProgress = false; });
+                                }}
                             >
                                 Decline
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
                             <Button fullWidth variant="contained" color="default"
-                                disabled={appointment.status === AppointmentStatusEnum.Pending}
-                                onClick={() => appState.appointments.signalEntity(appointment.entityKey, 'delete')}
+                                disabled={appState.inProgress || appointment.status === AppointmentStatusEnum.Pending}
+                                onClick={() => {
+                                    appState.inProgress = true;
+                                    appState.appointments.callEntity(appointment.entityKey, 'delete')
+                                        .catch(err => alert(err.message))
+                                        .finally(() => { appState.inProgress = false; });
+                                }}
                             >
                                 Delete
                             </Button>

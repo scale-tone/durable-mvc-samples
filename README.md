@@ -1,3 +1,4 @@
+![logo](https://raw.githubusercontent.com/scale-tone/durable-mvc-samples/main/appointments-sample/screenshot1.png)
 # durable-mvc-samples
 
 A set of code samples for [durable-mvc-starter](https://github.com/scale-tone/durable-mvc-starter).

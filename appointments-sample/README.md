@@ -1,3 +1,4 @@
+![logo](https://raw.githubusercontent.com/scale-tone/durable-mvc-samples/main/appointments-sample/screenshot1.png)
 # appointments-sample
 
 This sample is built with [durable-mvc-starter](https://github.com/scale-tone/durable-mvc-starter) and demonstrates the way you can define your [Durable Entities](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities?tabs=javascript) with class-based syntax and then render an [observable collection](https://mobx.js.org/observable-state.html) of those entities on the client. It also illustrates how to specify a different visibility level - `VisibilityEnum.ToListOfUsers` for your entity.

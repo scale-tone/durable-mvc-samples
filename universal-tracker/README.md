@@ -8,6 +8,7 @@ The app is built with [durable-mvc-starter](https://github.com/scale-tone/durabl
 # Prerequisites
 * [Azure Functions Core Tools](https://www.npmjs.com/package/azure-functions-core-tools) **globally** installed on your devbox.
 * An instance of Azure SignalR Service [configured in Serverless mode](https://docs.microsoft.com/en-us/azure/azure-signalr/concept-service-mode#serverless-mode).
+* (optionally) An [Azure Maps account](https://docs.microsoft.com/en-us/azure/azure-maps/how-to-manage-authentication#manage-and-rotate-shared-keys). If Azure Maps subscription key is not provided, geo coordinates will be rendered as strings.
 
 # How to run locally
 
@@ -34,7 +35,7 @@ The app is built with [durable-mvc-starter](https://github.com/scale-tone/durabl
   ```
 * Navigate to `http://localhost:7071` with your browser.
 
-You will first need to 'login' with some user name (this is only needed for testing purposes when running locally on your devbox, when deployed to Azure and EasyAuth properly configured your real user name should be picked up automatically). Then specify some URL to track and (optionally) a [JSONPath](https://www.npmjs.com/package/jsonpath) or a Regular Expression to be applied to the response - and the backend will periodically poll that URL, while the client side will automatically infer the value type and visualize it accordingly. Numbers are shown as a graph, geo coordinates (JSON array of two numbers) are displayed on a map, everything else is visualized as a multi-color horizontal bar. For a map to be shown, you need to have your own [Azure Maps account](https://docs.microsoft.com/en-us/azure/azure-maps/how-to-manage-authentication#manage-and-rotate-shared-keys) and specify its subscription key via config settings.
+You will first need to 'login' with some user name (this is only needed for testing purposes when running locally on your devbox, when deployed to Azure and EasyAuth properly configured your real user name should be picked up automatically). Then specify some URL to track and (optionally) a [JSONPath](https://www.npmjs.com/package/jsonpath) or a Regular Expression to be applied to the response - and the backend will periodically poll that URL, while the client side will automatically infer the value type and visualize it accordingly. Numbers are shown as a graph, geo coordinates (JSON array of two numbers) are displayed on a map, everything else is visualized as a multi-color horizontal bar.
 
 # How to deploy to Azure
 

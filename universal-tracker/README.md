@@ -1,9 +1,11 @@
 ![logo](https://raw.githubusercontent.com/scale-tone/durable-mvc-samples/main/universal-tracker/screenshot1.png)
 # universal-tracker
 
-This sample web app can track virtually anything reachable via HTTP GET and visualize tracked values in form of a timeline graph or a map route (if the value represents geo coordinates).
+This sample web app can track virtually anything reachable via HTTP GET and visualize tracked values in form of a timeline graph or a map route (if the value represents geo coordinates). 
 
-The app is built with [durable-mvc-starter](https://github.com/scale-tone/durable-mvc-starter) and demonstrates the way you can define your [Durable Entities](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities?tabs=javascript) with class-based syntax and then render an [observable collection](https://mobx.js.org/observable-state.html) of those entities on the client.
+The app is built with [durable-mvc-starter](https://github.com/scale-tone/durable-mvc-starter) and demonstrates the way you can define your [Durable Entities](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities?tabs=javascript) with class-based syntax and then render an [observable collection](https://mobx.js.org/observable-state.html) of those entities on the client. 
+
+The actual tracking is done by this [TrackerEntity](https://github.com/scale-tone/durable-mvc-samples/blob/main/universal-tracker/DurableEntities/TrackerEntity.ts), a separate instance per each tracked value. Data points are stored in [entity's state](https://github.com/scale-tone/durable-mvc-samples/blob/main/universal-tracker/ui/src/shared/TrackerState.ts). When visualized, all your tracked values will be correlated by time.
 
 # Prerequisites
 * [Azure Functions Core Tools](https://www.npmjs.com/package/azure-functions-core-tools) **globally** installed on your devbox.

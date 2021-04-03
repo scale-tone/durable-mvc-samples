@@ -50,7 +50,7 @@ const appState = makeAutoObservable({
     userName: '',
     nameText: '',
     urlText: '',
-    jsonPathText: '',
+    queryText: '',
     inProgress: false,
 
     mapDataSources: {} as { [key: string]: atlas.source.DataSource }
@@ -107,9 +107,9 @@ export const App = observer(
                             InputLabelProps={{ shrink: true }}
                             variant="outlined"
                             size="small"
-                            value={appState.jsonPathText}
+                            value={appState.queryText}
                             disabled={appState.inProgress}
-                            onChange={(evt) => appState.jsonPathText = evt.target.value as string}
+                            onChange={(evt) => appState.queryText = evt.target.value as string}
                         />
 
                         <Box width={30} />
@@ -200,7 +200,7 @@ export const App = observer(
         private createNewEntity() {
 
             // Deriving entityId from url + jsonPath
-            const entityId = (appState.nameText + '-' + appState.urlText + '-' + appState.jsonPathText)
+            const entityId = (appState.nameText + '-' + appState.urlText + '-' + appState.queryText)
                 .replaceAll('"', '-')
                 .replaceAll('\'', '-')
                 .replaceAll('/', '-')
@@ -211,7 +211,7 @@ export const App = observer(
             const params: ITrackerParams = {
                 name: appState.nameText,
                 url: appState.urlText,
-                query: appState.jsonPathText
+                query: appState.queryText
             }
 
             // Creating a new entity by calling its 'init' method 
@@ -222,7 +222,7 @@ export const App = observer(
 
             appState.nameText = '';
             appState.urlText = '';
-            appState.jsonPathText = '';
+            appState.queryText = '';
         }
 
         private renderGraph(entityKey: string, entity: TrackerState, minTime: number): JSX.Element {

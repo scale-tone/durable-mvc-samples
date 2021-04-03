@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+
+        "AzureMapSubscriptionKey": {
+            "matchCondition": {
+                "methods": [
+                    "GET"
+                ],
+                "route": "/a/p/i/azure-map-subscription-key"
+            },
+            "responseOverrides": {
+                "response.body": "const AzureMapSubscriptionKey = '%AzureMapSubscriptionKey%'",
+                "response.headers.Content-Type": "application/javascript; charset=UTF-8"
+            }
+        }
+    }
+}

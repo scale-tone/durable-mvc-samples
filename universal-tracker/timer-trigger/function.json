@@ -1,0 +1,16 @@
+{
+    "bindings": [
+        {
+            "name": "myTimer",
+            "type": "timerTrigger",
+            "direction": "in",
+            "schedule": "%PollingIntervalCronExp%"
+        },
+        {
+            "name": "starter",
+            "type": "orchestrationClient",
+            "direction": "in"
+        }
+    ],
+    "scriptFile": "../dist/timer-trigger/index.js"
+}

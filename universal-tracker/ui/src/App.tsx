@@ -235,7 +235,7 @@ export const App = observer(
             }
 
             // If it is an array of two numbers, then treating them as coordinates and rendering on a map
-            if (!!AzureMapSubscriptionKey && Array.isArray(firstValue) && (firstValue.length === 2) && (!isNaN(firstValue[0])) && (!isNaN(firstValue[1]))) {
+            if (this.isConfigSettingDefined(AzureMapSubscriptionKey) && Array.isArray(firstValue) && (firstValue.length === 2) && (!isNaN(firstValue[0])) && (!isNaN(firstValue[1]))) {
                 return this.renderMap(entityKey, entity);
             }
 
@@ -352,6 +352,12 @@ export const App = observer(
             hashCode &= 0xFFFFEF;
 
             return '#' + hashCode.toString(16);
+        }
+
+        private isConfigSettingDefined(value: string) {
+            return !!value && !(
+                value.startsWith('%') && value.endsWith('%') // if this parameter isn't specified in Config Settings, the proxy returns env variable name instead
+            );
         }
     }
 );

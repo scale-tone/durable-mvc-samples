@@ -14,6 +14,9 @@ const axios_1 = require("axios");
 const jp = require("jsonpath");
 const rfc6902 = require("rfc6902");
 const DurableEntity_1 = require("../Common/DurableEntity");
+// Signal handler execution should _always_ last less, than timer-trigger's period (otherwise the entity might go unresponsive).
+// So need to set this timeout for the HTTP GET.
+const HttpTimeoutInMs = 3000;
 // Tracking logic implementation
 class TrackerEntity extends DurableEntity_1.DurableEntity {
     // Initializes this tracker
@@ -46,7 +49,7 @@ class TrackerEntity extends DurableEntity_1.DurableEntity {
             // Getting the current value and adding it to the list of points
             this.state.error = '';
             try {
-                var value = (yield axios_1.default.get(this.state.url, { timeout: 3000 })).data;
+                var value = (yield axios_1.default.get(this.state.url, { timeout: HttpTimeoutInMs })).data;
                 // Applying query, if any
                 if (!!this.state.query) {
                     if (typeof value === 'object') {

@@ -142,6 +142,8 @@ export const App = observer(
 
                     {appState.entities.items.map(entity => {
 
+                        const lastValue = !!entity.points.length ? this.valueToString(entity.points[entity.points.length - 1].value) : '';
+
                         return (<ListItem key={entity.entityKey}><Paper className="entity-paper">
 
                             <Grid container spacing={2}>
@@ -151,11 +153,18 @@ export const App = observer(
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}><Typography variant="h6">{entity.name}</Typography></Grid>
 
-                                        {!!entity.error ? (<>
-                                            <Grid item xs={12}><Typography color="secondary" variant="caption">Error: {entity.error}</Typography></Grid>
-                                        </>) : (<>
-                                        </>)}
-
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                label="Current Value"
+                                                InputProps={{ readOnly: true }}
+                                                InputLabelProps={{ shrink: true }}
+                                                variant="outlined"
+                                                size="small"
+                                                fullWidth
+                                                value={lastValue}
+                                            />
+                                        </Grid>
+                                        
                                         <Grid item xs={6}>
                                             <Button className="item-btn" variant="contained" color="default" size="small" disabled={appState.inProgress}
                                                 onClick={() => {
@@ -166,8 +175,9 @@ export const App = observer(
                                                 }}
                                             >
                                                 Reset
-                                        </Button>
+                                            </Button>
                                         </Grid>
+
                                         <Grid item xs={6}>
                                             <Button className="item-btn" variant="contained" color="default" size="small" disabled={appState.inProgress}
                                                 onClick={() => {
@@ -178,10 +188,14 @@ export const App = observer(
                                                 }}
                                             >
                                                 Delete
-                                        </Button>
+                                            </Button>
                                         </Grid>
-                                    </Grid>
-                                
+
+                                        {!!entity.error && (<Grid item xs={12}>
+                                            <Typography color="secondary" variant="caption">Error: {entity.error}</Typography>
+                                        </Grid>)}
+
+                                    </Grid>                               
                                 </Grid>
 
                                 <Grid item xs={10}>
@@ -253,7 +267,7 @@ export const App = observer(
                 data.push({ x: now, y: Number(entity.points[entity.points.length - 1].value) });
             }
 
-            return (<XYPlot width={window.innerWidth - 300} height={200} stackBy="y" xType="time" xDomain={[minTime, now]} margin={{ left: 80 }}>
+            return (<XYPlot width={window.innerWidth - 350} height={200} stackBy="y" xType="time" xDomain={[minTime, now]} margin={{ left: 80 }}>
 
                 <XAxis tickTotal={7} />
                 <YAxis />
@@ -275,7 +289,7 @@ export const App = observer(
             });
 
             return (<>
-                <XYPlot width={window.innerWidth - 300} height={100} stackBy="x" xType="time" xDomain={[minTime, now]} margin={{ left: 80, top: 30 }}>
+                <XYPlot width={window.innerWidth - 350} height={100} stackBy="x" xType="time" xDomain={[minTime, now]} margin={{ left: 80, top: 30 }}>
 
                     <XAxis tickTotal={7} />
 

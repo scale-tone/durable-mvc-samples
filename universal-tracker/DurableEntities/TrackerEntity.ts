@@ -98,7 +98,7 @@ export class TrackerEntity extends DurableEntity<TrackerState>
             }
 
             // Dropping old points, if needed
-            while (JSON.stringify(this.state).length > StateSizeLimitInSymbols) {
+            while (!!this.state.points.length && JSON.stringify(this.state).length > StateSizeLimitInSymbols) {
                 this.state.points.splice(0, 1);
             }
             

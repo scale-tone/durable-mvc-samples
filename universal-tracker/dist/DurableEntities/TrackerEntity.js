@@ -17,6 +17,8 @@ const DurableEntity_1 = require("../Common/DurableEntity");
 // Signal handler execution should _always_ last less, than timer-trigger's period (otherwise the entity might go unresponsive).
 // So need to set this timeout for the HTTP GET.
 const HttpTimeoutInMs = 3000;
+// Sadly need to limit the entity's state size to this
+const StateSizeLimitInSymbols = 9000;
 // Tracking logic implementation
 class TrackerEntity extends DurableEntity_1.DurableEntity {
     // Initializes this tracker
@@ -84,6 +86,10 @@ class TrackerEntity extends DurableEntity_1.DurableEntity {
                     if (diff.length > 0) {
                         this.state.points.push({ time, value });
                     }
+                }
+                // Dropping old points, if needed
+                while (JSON.stringify(this.state).length > StateSizeLimitInSymbols) {
+                    this.state.points.splice(0, 1);
                 }
             }
             catch (err) {

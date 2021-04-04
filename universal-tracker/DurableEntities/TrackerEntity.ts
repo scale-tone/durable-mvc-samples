@@ -10,6 +10,9 @@ import { ITrackerParams } from '../ui/src/shared/ITrackerParams';
 // So need to set this timeout for the HTTP GET.
 const HttpTimeoutInMs = 3000;
 
+// Sadly need to limit the entity's state size to this
+const StateSizeLimitInSymbols = 9000;
+
 // Tracking logic implementation
 export class TrackerEntity extends DurableEntity<TrackerState>
 {
@@ -93,6 +96,11 @@ export class TrackerEntity extends DurableEntity<TrackerState>
                 if (diff.length > 0) {
                     this.state.points.push({ time, value });
                 }
+            }
+
+            // Dropping old points, if needed
+            while (JSON.stringify(this.state).length > StateSizeLimitInSymbols) {
+                this.state.points.splice(0, 1);
             }
             
         } catch (err) {

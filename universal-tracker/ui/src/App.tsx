@@ -246,16 +246,14 @@ export const App = observer(
         private renderLineGraph(entity: TrackerState, minTime: number): JSX.Element {
 
             const data = entity.points.map(p => { return { x: new Date(p.time).getTime(), y: Number(p.value) } });
-
-            const now = new Date();
-            const utcNow = now.getTime() + now.getTimezoneOffset() * 60000;
+            const now = new Date().getTime();
 
             // Adding last point to the end, to make the graph look continuous
             if (entity.points.length > 0) {
-                data.push({ x: utcNow, y: Number(entity.points[entity.points.length - 1].value) });
+                data.push({ x: now, y: Number(entity.points[entity.points.length - 1].value) });
             }
 
-            return (<XYPlot width={window.innerWidth - 300} height={200} stackBy="y" xType="time" xDomain={[minTime, utcNow]} margin={{ left: 80 }}>
+            return (<XYPlot width={window.innerWidth - 300} height={200} stackBy="y" xType="time" xDomain={[minTime, now]} margin={{ left: 80 }}>
 
                 <XAxis tickTotal={7} />
                 <YAxis />
@@ -267,19 +265,17 @@ export const App = observer(
         private renderHorizontalBars(entity: TrackerState, minTime: number): JSX.Element {
 
             const firstTime = !!entity.points.length ? new Date(entity.points[0].time).getTime() : minTime;
-
-            const now = new Date();
-            const utcNow = now.getTime() + now.getTimezoneOffset() * 60000;
+            const now = new Date().getTime();
 
             const points = entity.points.map((p, i) => {
                 const curTime = new Date(p.time).getTime();
-                const nextTime = (i < (entity.points.length - 1)) ? new Date(entity.points[i + 1].time).getTime() : utcNow;
+                const nextTime = (i < (entity.points.length - 1)) ? new Date(entity.points[i + 1].time).getTime() : now;
 
                 return { stringValue: this.valueToString(p.value), timeDiff: nextTime - curTime };
             });
 
             return (<>
-                <XYPlot width={window.innerWidth - 300} height={100} stackBy="x" xType="time" xDomain={[minTime, utcNow]} margin={{ left: 80, top: 30 }}>
+                <XYPlot width={window.innerWidth - 300} height={100} stackBy="x" xType="time" xDomain={[minTime, now]} margin={{ left: 80, top: 30 }}>
 
                     <XAxis tickTotal={7} />
 

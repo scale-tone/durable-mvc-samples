@@ -73,8 +73,7 @@ class TrackerEntity extends DurableEntity_1.DurableEntity {
                 if (Array.isArray(value) && value.length === 1) {
                     value = value[0];
                 }
-                const now = new Date();
-                const time = new Date(now.getTime() + now.getTimezoneOffset() * 60000).toISOString();
+                const time = new Date().toISOString();
                 if (!this.state.points.length) {
                     // adding as the first point
                     this.state.points.push({ time, value });

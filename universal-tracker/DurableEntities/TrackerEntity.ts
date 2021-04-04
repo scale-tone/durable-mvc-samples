@@ -79,8 +79,7 @@ export class TrackerEntity extends DurableEntity<TrackerState>
                 value = value[0];
             }
 
-            const now = new Date();
-            const time = new Date(now.getTime() + now.getTimezoneOffset() * 60000).toISOString();
+            const time = new Date().toISOString();
 
             if (!this.state.points.length) {
 

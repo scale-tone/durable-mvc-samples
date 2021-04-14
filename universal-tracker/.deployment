@@ -1,0 +1,2 @@
+[config]
+command = deploy-with-yarn-and-zip-deploy.cmd

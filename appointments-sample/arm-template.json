@@ -101,7 +101,7 @@
                 "siteConfig": {
                     "appSettings": [
                         {
-                            "name": "Project",
+                            "name": "RELATIVE_PATH_TO_SOURCES",
                             "value": "appointments-sample"
                         },
                         {

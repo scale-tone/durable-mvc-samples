@@ -8,19 +8,19 @@
     exit /b 1
 )
 
-:: Installing yarn, as it installs npm packages much faster
-call npm install yarn -g --silent
-IF %errorlevel% NEQ 0 goto end
-
 :: Copying sources to a temp folder
 SET MY_BUILD_TEMP_FOLDER=%TMP%\771F19D0EE46481380759838873C84E5
 mkdir %MY_BUILD_TEMP_FOLDER%
 xcopy %DEPLOYMENT_SOURCE%\%RELATIVE_PATH_TO_SOURCES% %MY_BUILD_TEMP_FOLDER% /S /H /Y
 IF %errorlevel% NEQ 0 goto end
 
-:: Installing npm packages
 cd %MY_BUILD_TEMP_FOLDER%
-call yarn
+
+:: Installing yarn, as it installs npm packages much faster
+call npm install yarn --silent
+
+:: Installing npm packages
+call node_modules\.bin\yarn
 IF %errorlevel% NEQ 0 goto end
 
 :: Zipping the entire temp folder into d:\home\data\SitePackages\package.zip, 

@@ -91,7 +91,7 @@
                     ],
                     "properties": {
                         "RepoUrl": "https://github.com/scale-tone/durable-mvc-samples",
-                        "branch": "tino-deployment-experiments",
+                        "branch": "main",
                         "IsManualIntegration": true
                     }
                 }

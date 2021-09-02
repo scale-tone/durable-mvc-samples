@@ -17,7 +17,7 @@
             }
         },
         "AzureMapSubscriptionKey": {
-            "type": "string",
+            "type": "securestring",
             "defaultValue": "",
             "metadata": {
                 "description": "(optional) Azure Maps subscription key, needed to visualize geo coordinates on a map"

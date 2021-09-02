@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "durable-functions": "^1.4.6",
+    "durable-functions": "^1.5.2",
     "jsonpath": "^1.1.1",
     "rfc6902": "^4.0.1"
   },

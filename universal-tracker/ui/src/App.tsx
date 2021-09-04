@@ -45,16 +45,19 @@ DurableEntitySet.setup({
 const appState = makeAutoObservable({
 
     // Here all tracker entities will appear
-    entities: new DurableEntitySet<TrackerState>('TrackerEntity'),
+    entities: new DurableEntitySet<TrackerState>('TrackerEntity', false),
 
     userName: '',
     nameText: '',
     urlText: '',
     queryText: '',
-    inProgress: false,
+    inProgress: true,
 
     mapDataSources: {} as { [key: string]: atlas.source.DataSource }
 });
+
+// Triggering initial load and handling its finish
+appState.entities.attachAllEntities().finally(() => { appState.inProgress = false; });
 
 // Rendering that entity state
 export const App = observer(

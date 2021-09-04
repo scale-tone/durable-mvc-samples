@@ -31,7 +31,7 @@ export class DurableEntitySet<TState extends object> {
 
     // Attach all entities of this type (that type you previously passed to ctor).
     // Preloads all existing entities of this type and then automatically captures all newly created entities.
-    attachAllEntities(): void {
+    attachAllEntities(): Promise<void> {
 
         DurableEntitySet.initSignalR();
 
@@ -39,7 +39,7 @@ export class DurableEntitySet<TState extends object> {
         DurableEntitySet.EntitySets[this._entityName] = this.items;
 
         // Loading all existing entities
-        DurableEntitySet.fetchAndApplyAllEntityStates(this._entityName);
+        return DurableEntitySet.fetchAndApplyAllEntityStates(this._entityName);
     }
 
     // Manually attach a single entity with specific key
@@ -261,16 +261,22 @@ export class DurableEntitySet<TState extends object> {
         });
     }
 
-    private static fetchAndApplyAllEntityStates(entityName: string): void {
+    private static fetchAndApplyAllEntityStates(entityName: string): Promise<void> {
 
         const uri = `${BackendBaseUri}/entities/${entityName}`;
-        this.HttpClient.get(uri).then(response => {
+        return this.HttpClient.get(uri).then(response => {
 
             for (var item of JSON.parse(response.content as string)) {
 
                 const entityKey = item.entityKey;
                 const entityId = EntityStateChangedMessage.FormatEntityId(entityName, entityKey);
                 const stateContainer = item as DurableEntityClientStateContainer;
+
+                // Turned out that durableClient.getStatusAll() might return instances that were created _after_ that call was initiated
+                if (!!this.EntityStates[entityId]) {
+                    this.Config.logger!.log(LogLevel.Information, `DurableEntitySet: ${entityId} is already known. Skipping.`);
+                    continue;
+                }
 
                 makeAutoObservable(stateContainer.state);
                 this.EntityStates[entityId] = stateContainer;

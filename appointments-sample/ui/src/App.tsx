@@ -40,11 +40,14 @@ const appState = makeAutoObservable({
 
     participantsText: '',
 
-    inProgress: false,
+    inProgress: true,
 
     // Here all appointment entities will appear
-    appointments: new DurableEntitySet<AppointmentState>('AppointmentEntity')
+    appointments: new DurableEntitySet<AppointmentState>('AppointmentEntity', false)
 });
+
+// Triggering initial load and handling its finish
+appState.appointments.attachAllEntities().finally(() => { appState.inProgress = false; });
 
 // Rendering that entity state
 export const App = observer(

@@ -1,4 +1,4 @@
-import { DurableEntity, VisibilityEnum } from '../Common/DurableEntity';
+import { DurableEntity, VisibilityEnum } from '../common/DurableEntity';
 import { AppointmentState, AppointmentStatusEnum } from '../ui/src/shared/AppointmentState';
 
 // Appointment logic implementation

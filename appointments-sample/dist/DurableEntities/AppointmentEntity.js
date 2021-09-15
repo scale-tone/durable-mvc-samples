@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppointmentEntity = void 0;
-const DurableEntity_1 = require("../Common/DurableEntity");
+const DurableEntity_1 = require("../common/DurableEntity");
 const AppointmentState_1 = require("../ui/src/shared/AppointmentState");
 // Appointment logic implementation
 class AppointmentEntity extends DurableEntity_1.DurableEntity {

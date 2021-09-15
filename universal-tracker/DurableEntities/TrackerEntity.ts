@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as jp from 'jsonpath';
 import * as rfc6902 from 'rfc6902';
 
-import { DurableEntity } from '../Common/DurableEntity';
+import { DurableEntity } from '../common/DurableEntity';
 import { TrackerState } from '../ui/src/shared/TrackerState';
 import { ITrackerParams } from '../ui/src/shared/ITrackerParams';
 

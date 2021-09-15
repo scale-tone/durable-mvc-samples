@@ -13,7 +13,7 @@ exports.TrackerEntity = void 0;
 const axios_1 = require("axios");
 const jp = require("jsonpath");
 const rfc6902 = require("rfc6902");
-const DurableEntity_1 = require("../Common/DurableEntity");
+const DurableEntity_1 = require("../common/DurableEntity");
 // Signal handler execution should _always_ last less, than timer-trigger's period (otherwise the entity might go unresponsive).
 // So need to set this timeout for the HTTP GET.
 const HttpTimeoutInMs = 3000;

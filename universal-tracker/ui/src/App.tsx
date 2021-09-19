@@ -217,13 +217,8 @@ export const App = observer(
         private createNewEntity() {
 
             // Deriving entityId from url + jsonPath
-            const entityId = (appState.nameText + '-' + appState.urlText + '-' + appState.queryText)
-                .replaceAll('"', '-')
-                .replaceAll('\'', '-')
-                .replaceAll('/', '-')
-                .replaceAll('\\', '-')
-                .replaceAll('#', '-')
-                .replaceAll('?', '-');
+            const entityId = btoa(appState.nameText + '-' + appState.urlText + '-' + appState.queryText)
+                .replaceAll('/', '-');
 
             const params: ITrackerParams = {
                 name: appState.nameText,

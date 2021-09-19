@@ -18,7 +18,7 @@ const DurableEntity_1 = require("../common/DurableEntity");
 // So need to set this timeout for the HTTP GET.
 const HttpTimeoutInMs = 3000;
 // Sadly need to limit the entity's state size to this
-const StateSizeLimitInSymbols = 9000;
+const StateSizeLimitInSymbols = 64000;
 // Tracking logic implementation
 class TrackerEntity extends DurableEntity_1.DurableEntity {
     // Initializes this tracker

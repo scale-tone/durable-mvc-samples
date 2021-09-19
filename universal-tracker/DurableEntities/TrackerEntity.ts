@@ -11,7 +11,7 @@ import { ITrackerParams } from '../ui/src/shared/ITrackerParams';
 const HttpTimeoutInMs = 3000;
 
 // Sadly need to limit the entity's state size to this
-const StateSizeLimitInSymbols = 9000;
+const StateSizeLimitInSymbols = 64000;
 
 // Tracking logic implementation
 export class TrackerEntity extends DurableEntity<TrackerState>

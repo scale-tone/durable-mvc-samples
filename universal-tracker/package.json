@@ -10,13 +10,13 @@
     "test": "jest --verbose"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "durable-functions": "^1.5.2",
+    "axios": "^0.21.4",
+    "durable-functions": "^2.0.2",
     "jsonpath": "^1.1.1",
     "rfc6902": "^4.0.1"
   },
   "devDependencies": {
-    "@azure/functions": "^1.2.2",
+    "@azure/functions": "^2.0.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.6.2",
     "@types/jsonpath": "^0.2.0",
